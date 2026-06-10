@@ -1,0 +1,38 @@
+// Open bracket closed by same close bracket
+// Closed in correct order: ()[], ([])
+
+class Solution {
+    /**
+     * @param {string} s
+     * @return {boolean}
+     */
+    isValid(s) {
+        // Initialized an empty stack
+        let openBrackets = [];
+        // Create dictionary for brackets
+        let closeToOpen = {')':'(', '}':'{', ']':'['};
+
+        // Iterate through each character in the string
+        for (let i = 0; i < s.length; i++) {
+            // Check if current character is not key in dictionary
+            if (!(s[i] in closeToOpen)) {
+                // This means the character is (maybe) an opening bracket
+                openBrackets.push(s[i]);
+            } else {
+                // Check if stack
+                if (openBrackets[openBrackets.length - 1] === closeToOpen[s[i]]) {
+                    openBrackets.pop();
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        // Check if stack is empty
+        if (openBrackets.length !== 0) {
+            return false;
+        }
+
+        return true;
+    }
+}
